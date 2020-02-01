@@ -12,6 +12,7 @@ var wizardTemplate = document.querySelector('#similar-wizard-template').content.
 var setupPopup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setupPopup.querySelector('.setup-close');
+var setupUserName = setupPopup.querySelector('.setup-user-name');
 
 var getRandomVaue = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -58,7 +59,8 @@ var appendWizard = function () {
 appendWizard();
 
 var closeKeyEscHandler = function (evt) {
-  if (evt.key === ESCAPE_BTN) {
+  var isFocused = (document.activeElement === setupUserName);
+  if (evt.key === ESCAPE_BTN && !isFocused) {
     closeSetupPopup();
   }
 };
@@ -80,6 +82,11 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 setupClose.addEventListener('click', closeSetupPopup);
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === ENTER_BTN) {
+    closeSetupPopup();
+  }
+});
 
 setupPopup.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('wizard-coat')) {
