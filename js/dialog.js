@@ -73,12 +73,14 @@
     };
 
     var onMouseUp = function () {
-      var isDragChecking = function (clickEvt) {
-        if (isDrag) {
+
+      if (isDrag) {
+        var isDragChecking = function (clickEvt) {
           clickEvt.preventDefault();
-        }
-      };
-      uploadBtn.addEventListener('click', isDragChecking, {once: true});
+          uploadBtn.removeEventListener('click', isDragChecking);
+        };
+        uploadBtn.addEventListener('click', isDragChecking);
+      }
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
