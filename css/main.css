@@ -1019,3 +1019,18 @@ input[type=radio]:checked + .review-mark-label
 
     opacity: 0;
 }
+
+.error {
+  position: absolute;
+  background-color: red;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+.error__message {
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}

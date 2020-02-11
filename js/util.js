@@ -16,6 +16,11 @@
   var dialogInitX = getComputedStyle(document.querySelector('.setup')).left;
   var dialogInitY = getComputedStyle(document.querySelector('.setup')).top;
 
+  var errorHandler = function (message) {
+    document.querySelector('.error').classList.remove('hidden');
+    document.querySelector('.error__message').innerText = message;
+  };
+
   window.util = {
     COUNT_WIZARD: COUNT_WIZARD,
     NAMES: NAMES,
@@ -27,6 +32,7 @@
     ENTER_BTN: ENTER_BTN,
     getRandomValue: getRandomValue,
     dialogInitX: dialogInitX,
-    dialogInitY: dialogInitY
+    dialogInitY: dialogInitY,
+    errorHandler: errorHandler
   };
 })();
