@@ -5,6 +5,7 @@
   var setupClose = setupPopup.querySelector('.setup-close');
   var setupUserName = setupPopup.querySelector('.setup-user-name');
   var uploadBtn = setupPopup.querySelector('.upload input');
+  var setupSimilarList = setupPopup.querySelector('.setup-similar-list');
 
   var closeKeyEscHandler = function (evt) {
     var isFocused = (document.activeElement === setupUserName);
@@ -38,11 +39,29 @@
     }
   });
 
+  var updateListWizard = function (wizards) {
+    setupSimilarList.innerHTML = '';
+    window.appendWizard(wizards);
+  };
+
   setupPopup.addEventListener('click', function (evt) {
+    var randomCoat = getComputedStyle(document.querySelector('.wizard-coat')).fill;
+    var randomEye = getComputedStyle(document.querySelector('.wizard-eyes')).fill;
     if (evt.target.classList.contains('wizard-coat')) {
-      evt.target.style.fill = window.util.getRandomValue(window.util.COAT_COLORS);
+      randomCoat = window.util.getRandomValue(window.util.COAT_COLORS);
+      evt.target.style.fill = randomCoat;
+      window.sortSimilar.sortSimilarWizards(window.backend.wizardsInit, randomCoat);
+      window.debounce(function () {
+        updateListWizard(window.backend.wizardsInit);
+      });
+
     } else if (evt.target.classList.contains('wizard-eyes')) {
-      evt.target.style.fill = window.util.getRandomValue(window.util.EYES_COLORS);
+      randomEye = window.util.getRandomValue(window.util.EYES_COLORS);
+      evt.target.style.fill = randomEye;
+      window.sortSimilar.sortSimilarWizards(window.backend.wizardsInit, randomCoat, randomEye);
+      window.debounce(function () {
+        updateListWizard(window.backend.wizardsInit);
+      });
     } else if (evt.target.classList.contains('setup-fireball')) {
       evt.target.parentNode.style.background = window.util.getRandomValue(window.util.FIREBALL_COLORS);
     }
