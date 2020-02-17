@@ -19,6 +19,7 @@
   };
 
   var appendWizard = function (wizardsArray) {
+    window.backend.wizardsInit = wizardsArray;
     document.querySelector('.setup-similar-list').appendChild(generateFragmentWizard(wizardsArray.slice(0, window.util.COUNT_WIZARD)));
     document.querySelector('.setup-similar').classList.remove('hidden');
   };
