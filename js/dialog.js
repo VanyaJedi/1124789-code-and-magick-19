@@ -39,11 +39,11 @@
     }
   });
 
-  var updateListWizard = function (wizards, randomCoat, randomEye) {
+  var updateListWizard = window.debounce(function (wizards, randomCoat, randomEye) {
     window.sortSimilar.sortSimilarWizards(window.backend.wizardsInit, randomCoat, randomEye);
     setupSimilarList.innerHTML = '';
     window.appendWizard(wizards);
-  };
+  });
 
   setupPopup.addEventListener('click', function (evt) {
     var randomCoat = getComputedStyle(document.querySelector('.wizard-coat')).fill;
@@ -51,16 +51,12 @@
     if (evt.target.classList.contains('wizard-coat')) {
       randomCoat = window.util.getRandomValue(window.util.COAT_COLORS);
       evt.target.style.fill = randomCoat;
-      window.debounce(function () {
-        updateListWizard(window.backend.wizardsInit, randomCoat, randomEye);
-      });
+      updateListWizard(window.backend.wizardsInit, randomCoat, randomEye);
 
     } else if (evt.target.classList.contains('wizard-eyes')) {
       randomEye = window.util.getRandomValue(window.util.EYES_COLORS);
       evt.target.style.fill = randomEye;
-      window.debounce(function () {
-        updateListWizard(window.backend.wizardsInit, randomCoat, randomEye);
-      });
+      updateListWizard(window.backend.wizardsInit, randomCoat, randomEye);
     } else if (evt.target.classList.contains('setup-fireball')) {
       evt.target.parentNode.style.background = window.util.getRandomValue(window.util.FIREBALL_COLORS);
     }
