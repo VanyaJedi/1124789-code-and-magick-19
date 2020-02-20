@@ -39,13 +39,13 @@
     }
   });
 
-  var updateListWizard = window.debounce(function (wizards, randomCoat, randomEye) {
+  var updateListWizard = function (wizards, randomCoat, randomEye) {
     window.sortSimilar.sortSimilarWizards(window.backend.wizardsInit, randomCoat, randomEye);
     setupSimilarList.innerHTML = '';
     window.appendWizard(wizards);
-  });
+  };
 
-  setupPopup.addEventListener('click', function (evt) {
+  var updateListWizardHandler = window.debounce(function (evt) {
     var randomCoat = getComputedStyle(document.querySelector('.wizard-coat')).fill;
     var randomEye = getComputedStyle(document.querySelector('.wizard-eyes')).fill;
     if (evt.target.classList.contains('wizard-coat')) {
@@ -61,6 +61,8 @@
       evt.target.parentNode.style.background = window.util.getRandomValue(window.util.FIREBALL_COLORS);
     }
   });
+
+  setupPopup.addEventListener('click', updateListWizardHandler);
 
   uploadBtn.addEventListener('mousedown', function (evt) {
     var isDrag = false;
